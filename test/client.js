@@ -289,7 +289,7 @@ exports["Message tests"] = {
     },
 
     "Set envelope fails for receiver": function(test){
-        test.expect(2);
+        test.expect(3);
 
         var client = simplesmtp.connect(PORT_NUMBER, false, {});
 
@@ -313,6 +313,11 @@ exports["Message tests"] = {
         });
 
         client.on("error", function(err){
+            if(err.data) {
+                test.equal(2, err.data.length);
+            } else {
+                test.ok(false);
+            }
             test.ok(true);
         });
 
